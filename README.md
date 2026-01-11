@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Show House: allow you to see all the trending movies, add to personal collection, rate and review movies and follow the top profile for their personal review and recomendations.
 
-## Getting Started
+A production-style social movie platform built to demonstrate real backend engineering concepts: OAuth authentication, cursor-based pagination, Redis caching, SEO-optimized SSR, and traffic observability — not UI gimmicks.
 
-First, run the development server:
+🚀 Project Goals
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This project intentionally prioritizes scalable system design over visuals.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Core engineering focus:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Serverless backend architecture
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+OAuth security (no token leaks)
 
-## Learn More
+Redis-backed caching
 
-To learn more about Next.js, take a look at the following resources:
+Cursor-based pagination (feeds, reviews)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+SEO-friendly Server Components
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Traffic monitoring & performance metrics
 
-## Deploy on Vercel
+🧠 High-Level Architecture
+Browser
+  ↓
+Next.js (App Router)
+  ├── Server Components (SEO, SSR)
+  ├── Route Handlers (/app/api)
+  ↓
+PostgreSQL (Primary DB)
+  ↓
+Redis (Caching Layer)
+  ↓
+TMDB API (External Data)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+🧰 Tech Stack (Locked)
+Frontend
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Next.js (App Router)
+
+TypeScript
+
+Tailwind CSS / MUI
+
+Native fetch with cache control or React Query
+
+Backend (Serverless)
+
+Next.js Route Handlers
+
+OAuth (Google / GitHub)
+
+JWT + Refresh Tokens
+
+httpOnly cookies (no localStorage)
+
+Infrastructure
+
+PostgreSQL (Supabase / Neon)
+
+Redis (Upstash / Redis Cloud)
+
+Vercel / Render
+
+Observability
+
+Winston / Pino logging
+
+Custom /metrics endpoint
+
+Optional: PostHog / OpenTelemetry
