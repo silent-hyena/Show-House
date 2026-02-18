@@ -1,14 +1,17 @@
 // app/api/search/route.ts
 import { NextRequest } from "next/server";
+import Tree from "../../../components/WordPredictor";
 
+const tree = new Tree();
 
 type movie = {
-    id: number;
-    title: string;
+  id: number;
+  title: string;
 };
+
 type tmdb = {
-  results: movie[]
-}
+  results: movie[];
+};
 
 async function searchMovies(query: string, page = "1"): Promise<tmdb | null> {
   const encodedQuery = encodeURIComponent(query);
@@ -24,35 +27,54 @@ async function searchMovies(query: string, page = "1"): Promise<tmdb | null> {
   });
 
   if (!res.ok) {
-    return null; 
+    return null;
   }
 
   return res.json();
 }
 
 export async function GET(req: NextRequest) {
-  const q = req.nextUrl.searchParams.get("q");
-  const page = req.nextUrl.searchParams.get("page") || "1";
+  // if single word use local rearch else call api:
 
-  if (!q) {
-    return Response.json({ error: "Missing query" }, { status: 400 });
+  let q = req.nextUrl.searchParams.get("q") || "";
+  const wordCount = q.trim().split(/\s+/).filter(Boolean).length;
+
+  if(wordCount >1){
+    const page = req.nextUrl.searchParams.get("page") || "1";
+
+    if (!q) {
+      return Response.json({ error: "Missing query" }, { status: 400 });
+    }
+
+    const data = await searchMovies(q, page);
+    console.log(data);
+
+    if (!data || !data.results || data.results.length === 0) {
+      return Response.json({ movies: [] });
+    }
+
+    // send unique movie list to front , onlt 10 reponses:
+    const unique = new Map<number, movie>();
+
+    for (const m of data.results) {
+      if (!unique.has(m.id)) {
+        unique.set(m.id, { id: m.id, title: m.title });
+      }
+    }
+
+    const movieList = Array.from(unique.values()).slice(0, 10);
+    console.log(movieList)
+    return Response.json({
+      movies: movieList,
+    });
   }
 
-  const data = await searchMovies(q, page);
-//   console.log(data)
+  else{
+    q = q.trim().toLowerCase();
 
-  if (!data || !data.results || data.results.length === 0) {
-    return Response.json({ movies: [] });
+    const movieList = tree.PredictWord(q);
+    return Response.json({
+      movies: movieList.slice(0, 10),
+    });
   }
-
-  const movieData = data.results.slice(0,10).map((m) => ({
-    id: m.id,
-    title: m.title,
-  }));
-
-  return Response.json({
-    movies: movieData,
-   
-  });
 }
-

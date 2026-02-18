@@ -4,8 +4,8 @@ import SearchBox from "./SearchBox"
 export default function Navbar() {
 
     return <>
-        <div className="bg-[#01b4e4] dark:bg-[#100953] text-gray-100 dark:text-blue-100 py-2 px-1 w-auto">
-            <nav className="flex flex-row items-center justify-between">
+        <div className="bg-[#01b4e4] dark:bg-[#100953]  text-gray-100 dark:text-blue-100 py-2 px-1 w-auto">
+            <nav className="flex flex-row items-center ">
 
                 {/*Brand Logo */}
                 <Link href='/'>
@@ -17,7 +17,14 @@ export default function Navbar() {
                     </div>
                 </Link>
 
-                <SearchBox/>
+                {/* <div className="me-[500px] w-[500px]">
+                    
+                </div> */}
+                <div className="ms-[500px]">
+                    <SearchBox/>
+                </div>
+                
+                
 
                 {/* Menu */}
                 {/* <ul className=" hidden sm:inline-flex flex flex-row items-center  font-bold  gap-[40px] justify-evenly  text-[min(10vw,25px)]">

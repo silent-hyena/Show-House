@@ -3,6 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { useEffect, useState } from "react";
 
+
 type tmdb = {
     id: number;
     title: string;
@@ -32,6 +33,7 @@ export default function SearchBox() {
 
         async function getSearchResult() {
             try {
+                if(debouncedVal.length <=3)return;
                 setNoMatch(false);
                 const res = await fetch(
                     `/api/search?q=${encodeURIComponent(debouncedVal)}`,
@@ -67,32 +69,6 @@ export default function SearchBox() {
                 }
             }
         }
-
-        // async function getSearchResult() {
-        //     try {
-        //         setNoMatch(false);
-        //         const res = await fetch(
-        //             `/api/search?q=${encodeURIComponent(debouncedVal)}`,
-        //             { signal: controller.signal }
-        //         );
-
-        //         if (!res.ok) {
-        //             setMovieList([]);
-        //             return;
-        //         }
-
-        //         const data = await res.json();
-        //         if(data.movies.lenght) setNoMatch(true);
-        //         setMovieList(data.movies);
-
-        //         console.log(data);
-        //     } catch (err: unknown) {
-        //         if (err.name !== "AbortError") {
-        //             console.error(err);
-        //         }
-        //     }
-        // }
-
         getSearchResult();
 
         return () => controller.abort();
@@ -134,20 +110,20 @@ export default function SearchBox() {
                 <input
                     type="search"
                     className="
-      bg-blue-50
-      text-slate-800
-      w-[100px] sm:w-[150px]
-      group-hover:w-[300px] sm:group-hover:w-[500px]
-      focus:w-[300px] sm:focus:w-[500px]
-      h-[30px]
-      px-4 
-      
-      rounded-full
-    
-      text-center
-      transition-all duration-300 ease-in-out
-      focus:outline-none
-    "
+                                bg-blue-50
+                                text-slate-800
+                                w-[100px] sm:w-[150px]
+                                group-hover:w-[300px] sm:group-hover:w-[500px]
+                                focus:w-[300px] sm:focus:w-[500px]
+                                h-[30px]
+                                px-4 
+                                
+                                rounded-full
+                                
+                                text-center
+                                transition-all duration-300 ease-in-out
+                                focus:outline-none
+                                "
                     placeholder="Search"
                     value={searchVal}
                     onChange={(e) => setSearchVal(e.target.value)}
@@ -167,30 +143,31 @@ export default function SearchBox() {
 
             <div
                 className="
-    text-slate-800
-    absolute
-    top-full
-    left-0
-    mt-0
-    w-[300px]
-    sm:w-[530px]
-    flex flex-col gap-2
-    bg-slate-50
-    px-3
-    py-0
-    rounded-xl
-    shadow-lg
-    z-50
-    opacity-0
-    pointer-events-none
-    group-hover:opacity-100
-    group-hover:pointer-events-auto
-    transition-opacity duration-200
-  "
+                            text-slate-800
+                            absolute
+                            top-full
+                            left-0
+                            mt-0
+                            w-[300px]
+                            sm:w-[530px]
+                            flex flex-col gap-2
+                            bg-slate-50
+                            px-3
+                            py-0
+                            // rounded-xl
+                            rounded-b-xl
+                            shadow-lg
+                            z-50
+                            opacity-0
+                            pointer-events-none
+                            group-hover:opacity-100
+                            group-hover:pointer-events-auto
+                            transition-opacity duration-200
+                            "
             >
                 {/*  SEARCH RESULTS (TOP PRIORITY) */}
                 {debouncedVal && movieList.length > 0 && (
-                    <div className="flex flex-col gap-2 border-b pb-2">
+                    <div className="flex flex-col gap-2 p-2">
                         {movieList.map((m) => (
                             <Link
                                 key={m.id}
@@ -205,7 +182,7 @@ export default function SearchBox() {
 
                 {/*  GENRES (DEFAULT / FALLBACK) */}
                 {!debouncedVal && (
-                    <div className="flex flex-wrap gap-2 justify-center py-0">
+                    <div className="flex flex-wrap gap-2 justify-center rounded-b-xl py-0 pb-2 pt-2">
                         {Genre.map((g) => (
                             <Link
                                 key={g.id}

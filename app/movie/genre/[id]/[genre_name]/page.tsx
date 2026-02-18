@@ -50,9 +50,10 @@ export default async function MovieByGenre({ params,searchParams }: PageProps) {
     return (<>
         <Navbar />
         <div className="flex flex-col gap-2 m-0">
-            <h2 className="font-bold text-slate-800 dark:text-blue-100 text-[25px] mt-3 mb-0">Top in {name}</h2>
-            <hr className="border-t-2 border-slate-600 mt-0 mb-1" />
+            <h2 className="ms-2 pb-0 font-bold text-slate-800 dark:text-blue-100 text-[25px] mt-4 mb-0">Top in {name}</h2>
+            <hr className="border-t-2 pt-0 border-slate-600 mt-0 mb-1 mt-0" />
 
+            
 
             <MoviesListByGenre genreId={id} pageStart= {String(2*Number(pageNumber)-1)} />
         </div>

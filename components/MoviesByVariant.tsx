@@ -66,7 +66,7 @@ export default async function MoviesByVariant({movieType}: MovieVariant) {
 
     return (
         <div className="my-[40px]">
-            <h3 className="dark:text-blue-50 text-3xl align-content-center text-slate-800 m-0 font-bold">{heading}</h3>
+            <h3 className="dark:text-blue-50 text-3xl align-content-center text-slate-800 m-0 ms-3 font-bold">{heading}</h3>
             <hr className="border-t-2 border-slate-600 mt-0 mb-1" />
 
 
