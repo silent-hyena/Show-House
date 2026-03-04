@@ -1,6 +1,7 @@
 // 'use client'
 import Image from "next/image";
 import MoviesListByGenre from "@/components/MoviesListByGenre";
+import Footer from "@/components/Footer"
 
 import MoviesByVariant from "@/components/MoviesByVariant";
 // import Image from "next/image"
@@ -59,6 +60,7 @@ export default function Home() {
       <hr className="border-t-2 border-slate-600 mt-0 mb-1" />
 
       <MoviesListByGenre pageStart="1" genreId="28" />
+      <Footer/>
     </>
   );
 }

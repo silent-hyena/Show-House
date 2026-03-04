@@ -1,11 +1,12 @@
 import Link from "next/link"
 import Image from "next/image"
 import SearchBox from "./SearchBox"
+import Signup from "./Signup"
 export default function Navbar() {
 
     return <>
         <div className="bg-[#01b4e4] dark:bg-[#100953]  text-gray-100 dark:text-blue-100 py-2 px-1 w-auto">
-            <nav className="flex flex-row items-center ">
+            <nav className="flex flex-row items-center justify-between">
 
                 {/*Brand Logo */}
                 <Link href='/'>
@@ -20,10 +21,10 @@ export default function Navbar() {
                 {/* <div className="me-[500px] w-[500px]">
                     
                 </div> */}
-                <div className="ms-[500px]">
-                    <SearchBox/>
-                </div>
                 
+                <SearchBox/>
+                
+                <Signup/>
                 
 
                 {/* Menu */}
