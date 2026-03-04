@@ -5,7 +5,7 @@ import { verifyToken } from "@/lib/jwtToken";
 
 export async function GET(req: NextRequest) {
   try {
-    console.log("req to user data");
+    // console.log("req to user data");
     //  Access cookies
     const cookieStore = cookies();
     const user = (await cookieStore).get("userToken")?.value;

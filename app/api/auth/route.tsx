@@ -85,11 +85,11 @@ export async function GET(request: NextRequest) {
 
       token = signToken({ userId: newUser.rows[0].id, email: null });
 
-      console.log("New Google user inserted");
+      // console.log("New Google user inserted");
     } else {
       // sign jwt token:
       token = signToken({ userId: existingUser.rows[0].id, email: null });
-      console.log("User already exists");
+      // console.log("User already exists");
     }
 
     const response = NextResponse.redirect(
